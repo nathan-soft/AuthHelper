@@ -1,0 +1,47 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Sensitive configuration
+profiles.json
+**/profiles.json
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Installer output
+installer/
+
+# Python packaging artifacts
+*.egg-info/
+.eggs/
+wheels/
+
+# IDE / editor
+.vscode/
+.idea/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.old
