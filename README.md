@@ -14,11 +14,14 @@ Instead of writing a separate authentication script for every API, configure you
 - **Configurable login endpoints** – Define the authentication endpoint for each API.
 - **Custom request payloads** – Configure the credentials and additional data required by an API.
 - **Flexible response mapping** – Extract access tokens and response information from different JSON structures.
-- **Automatic token caching** – Cache access tokens after successful authentication.
-- **Token expiration awareness** – Use token expiration information to determine whether a cached token is still valid.
+- **JWT and API key support** – Authenticate with APIs that return JWTs or ordinary API keys.
+- **Automatic token caching** – Cache access tokens and API keys after successful authentication.
+- **Token expiration awareness** – Read JWT expiration information to determine whether a cached token is still valid.
+- **Cached API key reuse** – Reuse cached API keys when expiration information is unavailable.
 - **Profile management** – Create, list, switch, and remove authentication profiles from the CLI.
 - **Clipboard support** – Copy an access token directly to the clipboard.
-- **Fresh authentication** – Force a new login when you need to bypass a cached token.
+- **Fresh authentication** – Force a new login using the `--fresh` option to bypass a cached token.
+- **Centralised error handling** – Display application errors as readable CLI messages instead of exposing raw Python tracebacks.
 
 ---
 
@@ -213,17 +216,25 @@ auth login
 
 Auth Helper checks whether a cached access token exists and whether it is still valid.
 
-If a valid cached token is available, it can be reused without making another authentication request.
+The way cached tokens are handled depends on the type of token returned by the API:
 
-If the token is missing or expired, Auth Helper performs a new login request using the credentials configured for the selected profile.
+- **JWT with an expiration claim:** Auth Helper reads the expiration date and reuses the cached token until it expires. Once expired, a new login request is performed.
+- **JWT without an expiration claim:** Auth Helper cannot determine when the token expires. The cached token is reused until a fresh login is requested.
+- **Ordinary API keys:** Since API keys do not contain JWT expiration information, Auth Helper caches and reuses them without checking an expiration date.
 
-To force a new login regardless of the cached token:
+If no cached token exists, Auth Helper performs a new login request using the credentials configured for the selected profile.
+
+To force a new login regardless of whether a cached token exists:
 
 ```bash
 auth login --fresh
 ```
 
+This replaces the previously cached token with the newly obtained token.
+
 The token cache is managed automatically and does not normally require manual modification.
+
+**Note:** For tokens without a detectable expiration date, Auth Helper cannot determine whether the API provider has invalidated them. If a cached token stops working, use `--fresh` to obtain a new one.
 
 ---
 
