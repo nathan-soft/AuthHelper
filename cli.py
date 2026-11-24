@@ -11,7 +11,18 @@ from commands import (
 from auth import run_login
 
 
-@click.group(name="auth")
+class AuthGroup(click.Group):
+    def invoke(self, ctx):
+        try:
+            return super().invoke(ctx)
+
+        except click.ClickException:
+            raise
+
+        except Exception as ex:
+            raise click.ClickException(str(ex)) from ex
+
+@click.group(name="auth", cls=AuthGroup)
 def cli():
     """Auth CLI tool"""
     pass

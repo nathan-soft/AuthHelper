@@ -114,7 +114,7 @@ def add_profile():
 
     print("\nConfigure login payload")
     print("---------------------")
-    print("Enter the fields required by your API.")
+    print("Enter the fields and their values required by your API.")
     print("Type 'done' when finished.\n")
 
     payload = {}
@@ -142,7 +142,7 @@ def add_profile():
             continue
 
         if key.lower() in sensitive_fields:
-            value = getpass(f"enter '{key}' value: ")
+            value = getpass(f"enter '{key}' value: ", echo_char="*")
         else:
             value = input(f"enter '{key}' value: ")
 

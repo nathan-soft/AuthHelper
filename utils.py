@@ -52,6 +52,12 @@ def get_profile(name: str | None = None) -> dict:
     if not name:
         name = data["default"]
 
+    if not name:
+        raise ValueError("No profile specified and no default profile is configured. to set a default profile, use the 'use' command. or login with a specific profile using 'auth login <profile_name>'.")
+
+    if name not in data["profiles"]:
+        raise ValueError(f"Profile '{name}' does not exist.")
+    
     return data["profiles"][name]
 
 

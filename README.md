@@ -22,6 +22,49 @@ Instead of writing a separate authentication script for every API, configure you
 
 ---
 
+## Downloads
+
+### Windows
+
+<escape> </escape>[**Download Auth Helper for Windows (64-bit)**](https://github.com/nathan-soft/AuthHelper/releases/latest)
+
+Download the latest Windows installer from the GitHub Releases page.
+
+**Installation:**
+
+1. Download `AuthHelperSetup.exe`.
+2. Run the installer.
+3. Open a new terminal window.
+4. Verify the installation:
+
+   ```powershell
+   auth --help
+   ```
+
+The installer automatically configures the `auth` command and adds it to your user PATH. A separate Python installation is not required.
+
+### Verify download integrity
+
+Each Windows release includes a SHA-256 checksum for the installer.
+
+To verify the downloaded file using PowerShell:
+
+```powershell
+Get-FileHash .\AuthHelperSetup.exe -Algorithm SHA256
+```
+
+Compare the resulting hash with the SHA-256 value published in the corresponding GitHub Release.
+
+### Other platforms
+
+- Windows: Available
+- Linux: Planned
+- macOS: Planned
+
+Cross-platform installation options are under development.
+
+---
+
 ## Installation
 
 ### Windows

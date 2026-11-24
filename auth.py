@@ -63,7 +63,7 @@ def run_login(profile_name: str|None = None, fresh: bool = False):
 
     token, expiry = get_cached_token(profile)
 
-    if not fresh and token and is_token_valid(expiry):
+    if not fresh and token and (expiry is None or is_token_valid(expiry)):
         print("Using cached token")
         return token
 
